@@ -26,13 +26,30 @@ func namePrompt() (string, string, string, uint) {
 	return firstName, lastName, email, tickets
 }
 
+func bookUser(tot uint, rem *uint, bookings []string) {
+	var userFName, userLName, userEmail, userTickets = namePrompt()
+	fmt.Printf("%s %s with email %s ordered %d tickets. ", userFName,
+		userLName, userEmail, userTickets)
+	*rem = tot - userTickets
+	for i := uint(0); i < userTickets; i++ {
+		bookings[i] = userLName + ", " + userFName
+	}
+}
+
 func main() {
 	conferenceName := "Go Conference"
-	const conferenceTickets uint = 50
+	const conferenceTickets = 50
 	var remainingTickets uint = 50
 
+	bookings := make([]string, 50)
+
 	introduction(conferenceName, conferenceTickets, remainingTickets)
-	var userFName, userLName, userEmail, userTickets = namePrompt()
-	fmt.Printf("%s %s with email %s ordered %d tickets", userFName,
-		userLName, userEmail, userTickets)
+	bookUser(conferenceTickets, &remainingTickets, bookings)
+	fmt.Println(remainingTickets, "are now remaining of", conferenceTickets)
+
+	for _, c := range bookings {
+		if c != "" {
+			fmt.Println(c)
+		}
+	}
 }
