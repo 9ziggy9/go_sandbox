@@ -10,14 +10,20 @@ func introduction(name string, tot uint, rem uint) {
 	fmt.Println("Get your tickets here to attend")
 }
 
-func namePrompt() string {
-	var guestFirstName string
-	var guestLastName string
+func namePrompt() (string, string, string, uint) {
+	var firstName string
+	var lastName string
+	var email string
+	var tickets uint
 	fmt.Printf("First name: ")
-	fmt.Scan(&guestFirstName)
+	fmt.Scan(&firstName)
 	fmt.Printf("Last name: ")
-	fmt.Scan(&guestLastName)
-	return guestFirstName + " " + guestLastName
+	fmt.Scan(&lastName)
+	fmt.Printf("Email: ")
+	fmt.Scan(&email)
+	fmt.Printf("Tickets: ")
+	fmt.Scan(&tickets)
+	return firstName, lastName, email, tickets
 }
 
 func main() {
@@ -26,6 +32,7 @@ func main() {
 	var remainingTickets uint = 50
 
 	introduction(conferenceName, conferenceTickets, remainingTickets)
-
-	fmt.Printf("Guest's name is %s", namePrompt())
+	var userFName, userLName, userEmail, userTickets = namePrompt()
+	fmt.Printf("%s %s with email %s ordered %d tickets", userFName,
+		userLName, userEmail, userTickets)
 }
